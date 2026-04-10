@@ -20,6 +20,7 @@ namespace Cruise_Catch
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //testing testing
         }
 
         protected override void Initialize()
