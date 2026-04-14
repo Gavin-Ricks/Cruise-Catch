@@ -20,6 +20,8 @@ namespace Cruise_Catch
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 1000;
+            graphics.PreferredBackBufferHeight = 700;
         }
 
         protected override void Initialize()
