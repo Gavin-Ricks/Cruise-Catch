@@ -6,7 +6,7 @@ namespace Cruise_Catch
     public enum PlayerState
     {
         Falling,
-        Jumping,
+        Standing,
         Dying
     }
 
@@ -25,7 +25,7 @@ namespace Cruise_Catch
             tex = spritesheet;
             rect = startPosition;
             vel = Vector2.Zero;
-            state = PlayerState.Falling;
+            state = PlayerState.Standing;
             IsAlive = true;
         }
 
