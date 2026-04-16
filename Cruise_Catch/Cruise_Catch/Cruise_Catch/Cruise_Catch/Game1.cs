@@ -29,6 +29,9 @@ namespace Project_60_Second_Cruise_Run
         SpriteFont font;
         int gameSeconds, gameTimer;
         Boolean isPaused;
+        Texture2D beachImage;
+        Texture2D startImage;
+        Texture2D gameOver;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -62,6 +65,9 @@ namespace Project_60_Second_Cruise_Run
 
             // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("SpriteFont1");
+            beachImage = this.Content.Load<Texture2D>("Beach");
+            startImage = this.Content.Load<Texture2D>("Start");
+            gameOver = this.Content.Load<Texture2D>("Over");
         }
 
         /// <summary>
@@ -89,6 +95,7 @@ namespace Project_60_Second_Cruise_Run
             //R is restart
             if (currentStage == currentGameStage.gameOverScreen && kb.IsKeyDown(Keys.R) && !oldKb.IsKeyDown(Keys.R))
             {
+                gameSeconds = 60;
                 currentStage = currentGameStage.titleScreen;
 
             }
@@ -118,6 +125,10 @@ namespace Project_60_Second_Cruise_Run
                         gameSeconds--;
                     }
                 }
+                if (gameSeconds <= 0)
+                {
+                    currentStage = currentGameStage.gameOverScreen;
+                }
             }
             
             
@@ -142,19 +153,21 @@ namespace Project_60_Second_Cruise_Run
             spriteBatch.Begin();
             if (currentStage == currentGameStage.titleScreen)
             {
-                spriteBatch.DrawString(font, "Welcome to 60 Second Cruise Catch", new Vector2(50, 100), Color.White);
-                spriteBatch.DrawString(font, "In this game, Jack has 60 seconds to run through all the levels.", new Vector2(25, 125), Color.White);
-                spriteBatch.DrawString(font, "The cruise leaves in 60 seconds.", new Vector2(50, 150), Color.White);
-                spriteBatch.DrawString(font, "Good luck. Press Space to begin.", new Vector2(50, 175), Color.White);
+                spriteBatch.Draw(startImage, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
+                spriteBatch.DrawString(font, "Welcome to 60 Second Cruise Catch", new Vector2(50, 100), Color.Red);
+                spriteBatch.DrawString(font, "In this game, Jack has 60 seconds to run through all the levels.", new Vector2(25, 125), Color.Red);
+                spriteBatch.DrawString(font, "The cruise leaves in 60 seconds.", new Vector2(50, 150), Color.Red);
+                spriteBatch.DrawString(font, "Good luck. Press Space to begin.", new Vector2(50, 175), Color.Red);
             }
             if (currentStage == currentGameStage.levelOne)
             {
+                spriteBatch.Draw(beachImage, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                 spriteBatch.DrawString(font, "Time left: " + gameSeconds, new Vector2(50, 175), Color.White);
                 //Do this
             }
             if (currentStage == currentGameStage.gameOverScreen)
             {
-                spriteBatch.DrawString(font, "Oh. You've been defeated. Press R to restart", new Vector2(50, 100), Color.White);
+                spriteBatch.Draw(gameOver, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
             }
             spriteBatch.End();
             base.Draw(gameTime);
