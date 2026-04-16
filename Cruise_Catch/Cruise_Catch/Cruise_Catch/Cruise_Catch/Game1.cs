@@ -27,6 +27,8 @@ namespace Project_60_Second_Cruise_Run
         currentGameStage currentStage;
         KeyboardState oldKb;
         SpriteFont font;
+        int gameSeconds, gameTimer;
+        Boolean isPaused;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,6 +45,8 @@ namespace Project_60_Second_Cruise_Run
         {
             // TODO: Add your initialization logic here
             currentStage = currentGameStage.titleScreen;
+            gameTimer = 0;
+            gameSeconds = 60;
             oldKb = Keyboard.GetState();
             base.Initialize();
         }
@@ -82,17 +86,41 @@ namespace Project_60_Second_Cruise_Run
 
             // TODO: Add your update logic here
             KeyboardState kb = Keyboard.GetState();
-            
             //R is restart
             if (currentStage == currentGameStage.gameOverScreen && kb.IsKeyDown(Keys.R) && !oldKb.IsKeyDown(Keys.R))
             {
                 currentStage = currentGameStage.titleScreen;
+
             }
             //Space is to change the state to the level
             if (kb.IsKeyDown(Keys.Space) && !oldKb.IsKeyDown(Keys.Space))
             {
+
                 currentStage = currentGameStage.levelOne;
             }
+
+            //Timer should stop when a player is either:
+                //Transitioning between levels
+
+                //Pause is set by player
+            if (kb.IsKeyDown(Keys.P) && !oldKb.IsKeyDown(Keys.P))
+            {
+                isPaused = !isPaused;
+            }
+            if (currentStage == currentGameStage.levelOne)
+            {
+                if (isPaused)
+                {
+                    gameTimer++;
+                    if (gameTimer == 60)
+                    {
+                        gameTimer = 0;
+                        gameSeconds--;
+                    }
+                }
+            }
+            
+            
             //If someone is defeated, we'll adjust this code but for now press D for defeat
             if (kb.IsKeyDown(Keys.D) && !oldKb.IsKeyDown(Keys.D))
             {
@@ -121,6 +149,7 @@ namespace Project_60_Second_Cruise_Run
             }
             if (currentStage == currentGameStage.levelOne)
             {
+                spriteBatch.DrawString(font, "Time left: " + gameSeconds, new Vector2(50, 175), Color.White);
                 //Do this
             }
             if (currentStage == currentGameStage.gameOverScreen)
