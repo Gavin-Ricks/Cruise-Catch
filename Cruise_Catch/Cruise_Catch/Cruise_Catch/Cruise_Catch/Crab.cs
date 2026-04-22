@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Final_Project
+namespace Cruise_Catch
 {
     class Crab
     {

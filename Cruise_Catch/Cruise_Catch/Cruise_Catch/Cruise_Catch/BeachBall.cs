@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Project_60_Second_Cruise_Run
+namespace Cruise_Catch
 {
     class BeachBall
     {
