@@ -59,6 +59,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Blocks.cs" />
+    <Compile Include="Camera.cs" />
+    <Compile Include="Level.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Spike.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
