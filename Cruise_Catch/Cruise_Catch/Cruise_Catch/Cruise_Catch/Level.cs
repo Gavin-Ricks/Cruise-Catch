@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Project
@@ -17,6 +18,10 @@ namespace Project
         Spikes[,] spikes;
         Vector2 startPos;
         Rectangle ending;
+        int minimumX;
+        int maximumX;
+        int minimumY;
+        int maximumY;
         public Level(Blocks[,] blocks, Spikes[,] spikes, Vector2 startPos, Rectangle ending)
         {
             this.blocks = blocks;
@@ -101,13 +106,11 @@ namespace Project
                     }
                 }
             }
-                catch (Exception e)
-                {
-                    Console.WriteLine("The file could not read:");
-                    Console.WriteLine(e.Message);
-                }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not read:");
+                Console.WriteLine(e.Message);
+            }
         }
-    }
-}
     }
 }
