@@ -18,7 +18,7 @@ namespace Cruise_Catch
         public bool IsActive { get; set; }
         public Vector2 WorldPosition { get; set; }
 
-        public Block(Vector2 WorldPosition, int width, int height, Texture2D texture, bool isSolid = true, bool isBreakable = false, float breakVelocity = 0f)
+        public Block(Vector2 WorldPosition, int width, int height, Texture2D texture, bool isSolid, bool isBreakable, float breakVelocity,bool isActive)
         {
             this.WorldPosition = WorldPosition;
             BlockRectangle = new Rectangle((int)WorldPosition.X, (int)WorldPosition.Y, width, height);
@@ -26,7 +26,7 @@ namespace Cruise_Catch
             IsSolid = isSolid;
             IsBreakable = isBreakable;
             BreakVelocity = breakVelocity;
-            IsActive = true;
+            IsActive = isActive;
         }
 
         /// Checks if the block should break based on impact velocity

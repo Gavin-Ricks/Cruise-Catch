@@ -17,9 +17,6 @@ namespace Cruise_Catch
         levelOne,
         gameOverScreen
     }
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
@@ -32,6 +29,12 @@ namespace Cruise_Catch
         Texture2D beachImage;
         Texture2D startImage;
         Texture2D gameOver;
+
+
+
+
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,15 +43,8 @@ namespace Cruise_Catch
             graphics.PreferredBackBufferHeight = 700;
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             currentStage = currentGameStage.titleScreen;
             gameTimer = 0;
             gameSeconds = 60;
@@ -56,62 +52,38 @@ namespace Cruise_Catch
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
             font = Content.Load<SpriteFont>("SpriteFont1");
             beachImage = this.Content.Load<Texture2D>("Beach");
             startImage = this.Content.Load<Texture2D>("Start");
             gameOver = this.Content.Load<Texture2D>("Over");
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
             KeyboardState kb = Keyboard.GetState();
-            //R is restart
             if (currentStage == currentGameStage.gameOverScreen && kb.IsKeyDown(Keys.R) && !oldKb.IsKeyDown(Keys.R))
             {
                 gameSeconds = 60;
                 currentStage = currentGameStage.titleScreen;
 
             }
-            //Space is to change the state to the level
             if (kb.IsKeyDown(Keys.Space) && !oldKb.IsKeyDown(Keys.Space))
             {
 
                 currentStage = currentGameStage.levelOne;
             }
 
-            //Timer should stop when a player is either:
-                //Transitioning between levels
-
-                //Pause is set by player
             if (kb.IsKeyDown(Keys.P) && !oldKb.IsKeyDown(Keys.P))
             {
                 isPaused = !isPaused;
@@ -134,7 +106,6 @@ namespace Cruise_Catch
             }
             
             
-            //If someone is defeated, we'll adjust this code but for now press D for defeat
             if (kb.IsKeyDown(Keys.D) && !oldKb.IsKeyDown(Keys.D))
             {
                 currentStage = currentGameStage.gameOverScreen;
@@ -143,15 +114,10 @@ namespace Cruise_Catch
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
             if (currentStage == currentGameStage.titleScreen)
             {
@@ -165,7 +131,6 @@ namespace Cruise_Catch
             {
                 spriteBatch.Draw(beachImage, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height), Color.White);
                 spriteBatch.DrawString(font, "Time left: " + gameSeconds, new Vector2(50, 175), Color.White);
-                //Do this
             }
             if (currentStage == currentGameStage.gameOverScreen)
             {
